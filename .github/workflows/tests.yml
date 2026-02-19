@@ -1,0 +1,40 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main, develop, master ]
+  pull_request:
+    branches: [ main, develop, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up C++ environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential g++ cmake
+
+    - name: Build linear algebra tests
+      run: |
+        g++ -Iinclude src/linear_algebra.cpp src/statistics.cpp tests/test_linear_algebra.cpp -o tests/test_linear_algebra
+
+    - name: Run linear algebra tests
+      run: ./tests/test_linear_algebra
+
+    - name: Build statistics tests
+      run: |
+        g++ -Iinclude src/linear_algebra.cpp src/statistics.cpp tests/test_statistics.cpp -o tests/test_statistics
+
+    - name: Run statistics tests
+      run: ./tests/test_statistics
+
+    - name: Build examples
+      run: |
+        g++ -Iinclude src/linear_algebra.cpp examples/example_linear_algebra.cpp -o examples/example
+
+    - name: Run example
+      run: ./examples/example
