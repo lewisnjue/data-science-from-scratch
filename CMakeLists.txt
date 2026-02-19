@@ -33,3 +33,22 @@ add_executable(example_linear_algebra
 )
 
 target_link_libraries(example_linear_algebra PRIVATE ds)
+target_include_directories(example_linear_algebra PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+add_executable(example_statistics
+    examples/statistics.cpp)
+
+target_link_libraries(example_statistics PRIVATE ds)
+target_include_directories(example_statistics PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+add_executable(test_statistics 
+tests/test_statistics.cpp
+)
+target_link_libraries(test_statistics PRIVATE ds)
+target_include_directories(test_statistics PRIVATE ${PROJECT_SOURCE_DIR}/include)
+add_executable(
+    test_linear_algebra
+    tests/test_linear_algebra.cpp
+)
+target_link_libraries(test_linear_algebra PRIVATE ds)
+target_include_directories(test_linear_algebra PRIVATE ${PROJECT_SOURCE_DIR}/include)
